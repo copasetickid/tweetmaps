@@ -35,6 +35,12 @@ group :development, :test do
   gem "capybara-webkit"
 end
 
+group :development do
+  gem 'terminal-notifier-guard'
+  gem 'guard-rspec', require: false
+  gem 'fuubar'
+end
+
 group :test do
   gem 'database_cleaner'
   gem 'webmock'
