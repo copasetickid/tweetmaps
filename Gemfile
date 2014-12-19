@@ -43,6 +43,7 @@ group :development, :test do
   gem 'factory_girl', '~> 4.5.0'
   gem 'selenium-webdriver'
   gem "capybara-webkit"
+  gem 'vcr', '~> 2.9.3'
 end
 
 group :development do
