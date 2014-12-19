@@ -31,6 +31,15 @@ group :development, :test do
   gem 'pry'
   gem 'dotenv-rails'
   gem 'factory_girl', '~> 4.5.0'
+  gem 'selenium-webdriver'
+  gem "capybara-webkit"
+end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'webmock'
+  gem 'capybara'
+  gem 'cucumber-rails',  require: false
 end
 
 # Use ActiveModel has_secure_password
