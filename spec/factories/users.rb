@@ -24,29 +24,16 @@
 #  updated_at             :datetime
 #
 
-class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable,
-  		  :rememberable, :trackable, :validatable, :omniauthable,
-  		  omniauth_providers: [:twitter]
-
-  def self.find_from_twitter_auth(auth)
-  	user = User.where(twitter_username: auth.info.nickname).first
-  end
-
-  def self.create_from_twitter_auth(auth)
-    user = create do |user|
-      user.twitter_username = auth.info.nickname
-      user.uid = auth.uid
-      user.avatar = auth.info.image
-      user.provider = auth.provider
-      user.name = auth.info.name
-      user.access_token = auth.credentials.token
-      user.access_token_secret = auth.credentials.secret
-      user.password = Devise.friendly_token[0, 20]
-    end
-    user.save(validate: false)
-    user
+FactoryGirl.define do
+  factory :user do
+    name { OmniAuth.config.mock_auth[:twitter_auth].name }
+    twitter_username { OmniAuth.config.mock_auth[:twitter_auth].info.nickname }
+    sequence(:email) {|n| "person-#{n}@example.com" }
+    password "password"
+    avatar { OmniAuth.config.mock_auth[:twitter_auth].info.image }
+    provider "twitter"
+    uid { OmniAuth.config.mock_auth[:twitter_auth].uid }
+    access_token { OmniAuth.config.mock_auth[:twitter_auth].credentials.token }
+    access_token_secret { OmniAuth.config.mock_auth[:twitter_auth].credentials.secret }
   end
 end
