@@ -40,13 +40,15 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.1'
   gem 'pry'
   gem 'dotenv-rails'
-  gem 'factory_girl', '~> 4.5.0'
+  gem 'factory_girl_rails', '~> 4.5.0'
   gem 'selenium-webdriver'
   gem "capybara-webkit"
   gem 'vcr', '~> 2.9.3'
 end
 
 group :development do
+  gem 'annotate', github: 'ctran/annotate_models'
+  gem 'railroady'
   gem 'terminal-notifier-guard'
   gem 'guard-rspec', require: false
   gem 'fuubar'

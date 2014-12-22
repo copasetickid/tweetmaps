@@ -8,11 +8,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   	end
 
   	@user = User.create_from_twitter_auth(auth)
-  	
+
   	if @user.persisted?
       sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
       set_flash_message(:notice, :success, :kind => "Twitter") if is_navigational_format?
-    elses
+    else
       session["devise.twitter_data"] = request.env["omniauth.auth"]
       redirect_to root_path
     end
