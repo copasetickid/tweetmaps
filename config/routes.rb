@@ -6,4 +6,6 @@ Rails.application.routes.draw do
     }
 
   root "home#index"
+
+  get "/:id" => "pages#dashboard", as: :dashboard
 end

@@ -17,7 +17,7 @@ RSpec.describe Users::OmniauthCallbacksController, :type => :controller do
 
       it "redirects to the root page" do
         get :twitter
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to dashboard_path(user)
       end
     end
 

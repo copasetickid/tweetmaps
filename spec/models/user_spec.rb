@@ -56,4 +56,11 @@ RSpec.describe User, :type => :model do
       end
     end
   end
+
+  describe ".username" do
+    it "generates a slug based on the user's twitter name" do
+      user = create(:user)
+      expect(user.slug).to eq user.twitter_username
+    end
+  end
 end

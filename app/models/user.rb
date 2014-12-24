@@ -31,6 +31,9 @@ class User < ActiveRecord::Base
   		  :rememberable, :trackable, :validatable, :omniauthable,
   		  omniauth_providers: [:twitter]
 
+  extend FriendlyId
+  friendly_id :username, use: :slugged
+
   def self.find_from_twitter_auth(auth)
   	user = User.where(twitter_username: auth.info.nickname).first
   end
@@ -48,5 +51,9 @@ class User < ActiveRecord::Base
     end
     user.save(validate: false)
     user
+  end
+
+  def username
+    self.twitter_username
   end
 end
