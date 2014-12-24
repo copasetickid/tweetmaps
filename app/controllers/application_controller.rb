@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   #Overwriting the sign_in redirect path method
   def after_sign_in_path_for(resource)
-    root_path
+    dashboard_path(resource)
   end
 
   #Overwriting the sign_out redirect path method
