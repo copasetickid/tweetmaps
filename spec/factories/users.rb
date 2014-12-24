@@ -22,6 +22,7 @@
 #  access_token_secret    :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  slug                   :string(255)
 #
 
 FactoryGirl.define do
