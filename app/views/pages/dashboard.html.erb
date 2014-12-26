@@ -1,4 +1,7 @@
-<%if user_signed_in? %>
-  <h1>Welcome!!</h1>
-  <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
-<% end %>
+
+<h1>Welcome!!</h1>
+<%= link_to "Log Out", destroy_user_session_path, method: :delete %>
+
+<div>
+  <%= link_to "See Followers", follower_lookup_path %>
+</div>

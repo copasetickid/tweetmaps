@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   root "pages#homepage"
 
   get "/:id" => "pages#dashboard", as: :dashboard
+  get "/followerlookup" => "followers#fetch_followers", as: :follower_lookup
 end
