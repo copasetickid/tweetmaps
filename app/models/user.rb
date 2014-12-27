@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :username, use: :slugged
 
+  has_many :followers
+
   def self.find_from_twitter_auth(auth)
   	user = User.where(twitter_username: auth.info.nickname).first
   end
