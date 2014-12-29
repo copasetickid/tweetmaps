@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 # Use postgresql as the database for Active Record
@@ -31,6 +30,7 @@ gem 'spring',        group: :development
 gem 'devise', '~> 3.4.1'
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'twitter'
 
 gem 'friendly_id', '~> 5.0.4'
 

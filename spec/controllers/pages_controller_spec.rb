@@ -4,9 +4,19 @@ RSpec.describe PagesController, :type => :controller do
   let! (:user) { create(:user) }
 
   describe "GET homepage" do
-    it "returns http success" do
+    it "renders when a user isn't signed in" do
       get :homepage
       expect(response).to have_http_status(:success)
+    end
+
+    context "user is signed in" do
+      before do
+        sign_in user
+      end
+      it "redirects to their dashboard" do
+        get :homepage
+        expect(response).to redirect_to dashboard_path(user)
+      end
     end
   end
 
