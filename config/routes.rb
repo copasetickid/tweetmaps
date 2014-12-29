@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   root "pages#homepage"
 
+  match "/404" => "errors#error404", via: [ :get, :post, :patch, :delete ], as: :error_404
+
   get "/:id" => "pages#dashboard", as: :dashboard
   get "/followers/list" => "followers#fetch_followers", as: :follower_lookup
 end
