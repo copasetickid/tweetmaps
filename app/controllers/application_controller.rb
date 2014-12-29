@@ -4,6 +4,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   layout 'application'
 
+  #Catch the CanCan Expection
+  rescue_from CanCan::AccessDenied do |exception|
+    render status: :not_found
+  end
+
   #Overwriting the sign_in redirect path method
   def after_sign_in_path_for(resource)
     dashboard_path(resource)
