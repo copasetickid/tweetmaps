@@ -9,5 +9,10 @@ class PagesController < ApplicationController
 
   def dashboard
     @user = User.friendly.find(params[:id])
+      if @user != current_user
+        render status: :not_found
+      end
+    rescue ActiveRecord::RecordNotFound
+      render status: :not_found
   end
 end

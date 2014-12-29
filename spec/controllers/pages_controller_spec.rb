@@ -34,5 +34,14 @@ RSpec.describe PagesController, :type => :controller do
       get :dashboard, id: user
       expect(assigns(:user)).to eq user
     end
+
+    context "rendering another user's dashboard" do
+      let! (:pharrell) { create(:user, twitter_username: "pharrell") }
+
+      it "renders the 404 page" do
+        get :dashboard, id: pharrell
+        expect(response).to have_http_status(404)
+      end
+    end
   end
 end
