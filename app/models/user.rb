@@ -16,10 +16,6 @@
 #  avatar                 :string(255)
 #  twitter_username       :string(255)
 #  name                   :string(255)
-#  provider               :string(255)
-#  uid                    :string(255)
-#  access_token           :string(255)
-#  access_token_secret    :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
 #  slug                   :string(255)
@@ -44,12 +40,8 @@ class User < ActiveRecord::Base
   def self.create_from_twitter_auth(auth)
     user = create do |user|
       user.twitter_username = auth.info.nickname
-      user.uid = auth.uid
       user.avatar = auth.info.image
-      user.provider = auth.provider
       user.name = auth.info.name
-      user.access_token = auth.credentials.token
-      user.access_token_secret = auth.credentials.secret
       user.password = Devise.friendly_token[0, 20]
     end
     user.save(validate: false)

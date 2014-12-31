@@ -16,10 +16,6 @@
 #  avatar                 :string(255)
 #  twitter_username       :string(255)
 #  name                   :string(255)
-#  provider               :string(255)
-#  uid                    :string(255)
-#  access_token           :string(255)
-#  access_token_secret    :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
 #  slug                   :string(255)
