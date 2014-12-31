@@ -24,7 +24,7 @@
 require 'rails_helper'
 
 RSpec.describe User, :type => :model do
-  context "Authentication" do
+  context "Social Authentication" do
     describe ".find_from_twitter_auth" do
       let(:auth) { OmniAuth.config.mock_auth[:twitter_auth] }
       it "finds existings users" do
@@ -44,12 +44,32 @@ RSpec.describe User, :type => :model do
       it "sets information from twitter " do
         user = User.create_from_twitter_auth(auth)
         expect(user.twitter_username).to eq auth['info']['nickname']
-        expect(user.uid).to eq auth['uid']
         expect(user.name).to eq auth['info']['name']
-        expect(user.provider).to eq "twitter"
         expect(user.avatar).to eq auth['info']['image']
-        expect(user.access_token).to eq auth['credentials']['token']
-        expect(user.access_token_secret).to eq auth['credentials']['secret']
+      end
+    end
+
+    describe ".find_for_omniauth" do
+      let(:auth) { OmniAuth.config.mock_auth[:twitter_auth] }
+
+      it "returns a new user" do
+        expect { User.find_for_omniauth(auth) }.to change { User.count }.by +1
+      end
+
+      context "Sign in via twitter" do
+         it "sets information from twitter & auth credentials " do
+          user = User.find_for_omniauth(auth)
+          user_auth = user.authentications.first
+
+          expect(user.twitter_username).to eq auth['info']['nickname']
+          expect(user.name).to eq auth['info']['name']
+          expect(user.avatar).to eq auth['info']['image']
+
+          expect(user_auth.provider).to eq "twitter"
+          expect(user_auth.uid).to eq auth['uid']
+          expect(user_auth.access_token).to eq auth['credentials']['token']
+          expect(user_auth.access_token_secret).to eq auth['credentials']['secret']
+        end
       end
     end
   end

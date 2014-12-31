@@ -1,13 +1,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def twitter
-  	@user = User.find_from_twitter_auth(auth)
-
-  	if @user
-  		return sign_in_and_redirect @user, :event => :authentication
-  	end
-
-  	@user = User.create_from_twitter_auth(auth)
+  	@user = User.find_for_omniauth(auth, current_user)
 
   	if @user.persisted?
       sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
