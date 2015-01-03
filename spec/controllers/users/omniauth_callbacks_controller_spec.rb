@@ -25,6 +25,11 @@ RSpec.describe Users::OmniauthCallbacksController, :type => :controller do
       it "creates the user in the User table " do
         expect { get :twitter }.to change { User.count }.by +1
       end
+
+      it "redirects to the finish signup page" do
+        get :twitter
+        expect(response).to redirect_to finish_signup_path
+      end
     end
   end
 
