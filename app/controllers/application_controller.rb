@@ -11,7 +11,11 @@ class ApplicationController < ActionController::Base
 
   #Overwriting the sign_in redirect path method
   def after_sign_in_path_for(resource)
-    dashboard_path(resource)
+    if resource.email_verified?
+      dashboard_path(resource)
+    else
+      finish_signup_path(resource)
+    end
   end
 
   #Overwriting the sign_out redirect path method
@@ -25,4 +29,5 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+
 end

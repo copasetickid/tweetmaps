@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!, only: [:dashboard]
+  include UserConcern
 
   def homepage
     if user_signed_in?
