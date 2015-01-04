@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
 # Use SCSS for stylesheets; Front-end assets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0.0'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'sprockets-rails', '~> 2.2.2'
 gem 'autoprefixer-rails'
@@ -18,7 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'therubyracer',  platforms: :ruby
 
 # JavaScript assets
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.0.3'
 
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',     group: :doc
@@ -28,6 +28,7 @@ gem 'spring',        group: :development
 
 #Authentication & Authorization
 gem 'devise', '~> 3.4.1'
+gem 'responders', '~> 2.0.2'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'twitter'
