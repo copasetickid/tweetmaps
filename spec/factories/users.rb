@@ -16,10 +16,6 @@
 #  avatar                 :string(255)
 #  twitter_username       :string(255)
 #  name                   :string(255)
-#  provider               :string(255)
-#  uid                    :string(255)
-#  access_token           :string(255)
-#  access_token_secret    :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
 #  slug                   :string(255)
@@ -32,9 +28,5 @@ FactoryGirl.define do
     sequence(:email) {|n| "person-#{n}@example.com" }
     password "password"
     avatar { OmniAuth.config.mock_auth[:twitter_auth].info.image }
-    provider "twitter"
-    uid { OmniAuth.config.mock_auth[:twitter_auth].uid }
-    access_token { OmniAuth.config.mock_auth[:twitter_auth].credentials.token }
-    access_token_secret { OmniAuth.config.mock_auth[:twitter_auth].credentials.secret }
   end
 end
