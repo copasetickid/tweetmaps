@@ -64,6 +64,7 @@ group :test do
   gem 'webmock'
   gem 'capybara'
   gem 'cucumber-rails',  require: false
+  gem "codeclimate-test-reporter", require: nil
 end
 
 # Use ActiveModel has_secure_password
