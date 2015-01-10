@@ -25,29 +25,6 @@ require 'rails_helper'
 
 RSpec.describe User, :type => :model do
   context "Social Authentication" do
-    describe ".find_from_twitter_auth" do
-      let(:auth) { OmniAuth.config.mock_auth[:twitter_auth] }
-      it "finds existings users" do
-        create(:user)
-        user = User.find_from_twitter_auth(auth)
-        expect(user).to be_persisted
-      end
-    end
-
-    describe ".create_from_twitter_auth" do
-      let(:auth) { OmniAuth.config.mock_auth[:twitter_auth] }
-
-      it "returns a new user" do
-        expect { User.create_from_twitter_auth(auth) }.to change { User.count }.by +1
-      end
-
-      it "sets information from twitter " do
-        user = User.create_from_twitter_auth(auth)
-        expect(user.twitter_username).to eq auth['info']['nickname']
-        expect(user.name).to eq auth['info']['name']
-        expect(user.avatar).to eq auth['info']['image']
-      end
-    end
 
     describe ".find_for_omniauth" do
       let(:auth) { OmniAuth.config.mock_auth[:twitter_auth] }

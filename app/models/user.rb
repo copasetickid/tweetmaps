@@ -39,21 +39,6 @@ class User < ActiveRecord::Base
   has_many :followers
   has_many :authentications
 
-  def self.find_from_twitter_auth(auth)
-  	user = User.where(twitter_username: auth.info.nickname).first
-  end
-
-  def self.create_from_twitter_auth(auth)
-    user = create do |user|
-      user.twitter_username = auth.info.nickname
-      user.avatar = auth.info.image
-      user.name = auth.info.name
-      user.password = Devise.friendly_token[0, 20]
-    end
-    user.save(validate: false)
-    user
-  end
-
   def self.find_for_omniauth(auth, signed_in_resource = nil)
     # Get the authentication and user if they exist
     social_auth =  Authentication.find_for_oauth(auth)
