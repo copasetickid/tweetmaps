@@ -20,4 +20,18 @@ class Authentication < ActiveRecord::Base
   def self.find_for_oauth(auth)
     Authentication.where(uid: auth.uid, provider: auth.provider).first_or_create
   end
+
+  #Associate the identity with the user if needed
+  def self.associate_with_social_auth(auth, user)
+    social_auth  = Authentication.where(uid: auth.uid, provider: auth.provider).first
+
+    if social_auth.user != user
+      social_auth.user = user
+      social_auth.access_token = auth.credentials.token
+      social_auth.access_token_secret = auth.credentials.secret
+      social_auth.save!
+    end
+
+    user
+  end
 end

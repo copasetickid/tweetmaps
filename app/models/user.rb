@@ -52,7 +52,21 @@ class User < ActiveRecord::Base
 
     # Create the user if needed
     if user.nil?
+      user = User.create_from_social_auth(auth)
+      #Associate the identity with the user if needed
+      user = Authentication.associate_with_social_auth(auth, user)
+    else
+      #Associate the identity with the user if needed
+      user = Authentication.associate_with_social_auth(auth, user)
+    end
+    user
+  end
 
+  def email_verified?
+    self.email && self.email !~ TEMP_EMAIL_REGEX
+  end
+
+  def self.create_from_social_auth(auth)
       # Get the existing user by email if the provider gives us a verified email.
       # If no verified email was provided we assign a temporary email and ask the
       # user to verify it on the next step via UsersController.finish_signup
@@ -72,20 +86,7 @@ class User < ActiveRecord::Base
         #user.skip_confirmation!
         user.save!
       end
-    end
-
-    #Associate the identity with the user if needed
-    if social_auth.user != user
-      social_auth.user = user
-      social_auth.access_token = auth.credentials.token
-      social_auth.access_token_secret = auth.credentials.secret
-      social_auth.save!
-    end
-    user
-  end
-
-  def email_verified?
-    self.email && self.email !~ TEMP_EMAIL_REGEX
+      user
   end
 
   def self.set_twitter_username(auth, user)
