@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
-# Use postgresql as the database for Active Record
+# Database
 gem 'pg'
 
 # Use SCSS for stylesheets; Front-end assets
@@ -10,18 +10,8 @@ gem 'sass-rails', '~> 5.0.0'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'sprockets-rails', '~> 2.2.2'
 gem 'autoprefixer-rails'
-
-
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
-
-# JavaScript assets
 gem 'jquery-rails', '~> 4.0.3'
-
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',     group: :doc
+gem 'uglifier', '>= 1.3.0'
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
@@ -49,6 +39,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem "capybara-webkit"
   gem 'vcr', '~> 2.9.3'
+  gem 'railroady'
 end
 
 group :development do
