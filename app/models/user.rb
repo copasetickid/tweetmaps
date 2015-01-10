@@ -39,21 +39,6 @@ class User < ActiveRecord::Base
   has_many :followers
   has_many :authentications
 
-  def self.find_from_twitter_auth(auth)
-  	user = User.where(twitter_username: auth.info.nickname).first
-  end
-
-  def self.create_from_twitter_auth(auth)
-    user = create do |user|
-      user.twitter_username = auth.info.nickname
-      user.avatar = auth.info.image
-      user.name = auth.info.name
-      user.password = Devise.friendly_token[0, 20]
-    end
-    user.save(validate: false)
-    user
-  end
-
   def self.find_for_omniauth(auth, signed_in_resource = nil)
     # Get the authentication and user if they exist
     social_auth =  Authentication.find_for_oauth(auth)
@@ -67,7 +52,21 @@ class User < ActiveRecord::Base
 
     # Create the user if needed
     if user.nil?
+      user = User.create_from_social_auth(auth)
+      #Associate the identity with the user if needed
+      user = Authentication.associate_with_social_auth(auth, user)
+    else
+      #Associate the identity with the user if needed
+      user = Authentication.associate_with_social_auth(auth, user)
+    end
+    user
+  end
 
+  def email_verified?
+    self.email && self.email !~ TEMP_EMAIL_REGEX
+  end
+
+  def self.create_from_social_auth(auth)
       # Get the existing user by email if the provider gives us a verified email.
       # If no verified email was provided we assign a temporary email and ask the
       # user to verify it on the next step via UsersController.finish_signup
@@ -87,20 +86,7 @@ class User < ActiveRecord::Base
         #user.skip_confirmation!
         user.save!
       end
-    end
-
-    #Associate the identity with the user if needed
-    if social_auth.user != user
-      social_auth.user = user
-      social_auth.access_token = auth.credentials.token
-      social_auth.access_token_secret = auth.credentials.secret
-      social_auth.save!
-    end
-    user
-  end
-
-  def email_verified?
-    self.email && self.email !~ TEMP_EMAIL_REGEX
+      user
   end
 
   def self.set_twitter_username(auth, user)

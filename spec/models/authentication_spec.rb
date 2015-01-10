@@ -31,4 +31,19 @@ RSpec.describe Authentication, :type => :model do
     auth3 = build(:authentication, provider: "facebook", uid: "12348", user: user2)
     expect(auth3).to be_valid
   end
+
+  describe "social authentication" do
+    let!(:user) { create(:user) }
+    let!(:twitter_auth) { OmniAuth.config.mock_auth[:twitter_auth] }
+
+    before do
+      create(:authentication)
+      Authentication.associate_with_social_auth(twitter_auth, user)
+    end
+
+    it "assoicates a user when a user is nil" do
+      social_auth  = Authentication.where(uid: twitter_auth.uid, provider: twitter_auth.provider).first
+      expect(social_auth.user).to eq user 
+    end
+  end
 end

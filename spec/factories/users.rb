@@ -23,10 +23,18 @@
 
 FactoryGirl.define do
   factory :user do
-    name { OmniAuth.config.mock_auth[:twitter_auth].name }
+    name { OmniAuth.config.mock_auth[:twitter_auth].info.name }
     twitter_username { OmniAuth.config.mock_auth[:twitter_auth].info.nickname }
     sequence(:email) {|n| "person-#{n}@example.com" }
     password "password"
     avatar { OmniAuth.config.mock_auth[:twitter_auth].info.image }
+
+    factory :user_with_twitter_auth do
+        name { OmniAuth.config.mock_auth[:twitter_auth_female].info.name }
+        twitter_username { OmniAuth.config.mock_auth[:twitter_auth_female].info.nickname }
+    	after(:create) do |user, evaluator|
+    		create(:authentication_with_twitter, user: user)
+    	end
+    end
   end
 end
