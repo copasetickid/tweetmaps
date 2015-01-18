@@ -99,4 +99,8 @@ class User < ActiveRecord::Base
   def username
     self.twitter_username
   end
+
+  def latest_auth
+    authentications.last
+  end
 end
