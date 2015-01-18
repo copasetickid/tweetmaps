@@ -10,8 +10,32 @@
       center: { lat: 40.783435, lng: -73.966249},
       zoom: 12
     };
+
+    // init map
     var map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
+
+    // follower latlong hardcoded seed data
+    var f1 = new google.maps.LatLng(40.783435,-73.966249);
+    var f2 = new google.maps.LatLng(40.723435,-73.866249);
+    var f3 = new google.maps.LatLng(40.813435,-74.006249);
+
+    // follower markers
+    var marker1 = new google.maps.Marker({
+        position: f1,
+        map: map,
+        title:"First follower"
+    });
+    var marker2 = new google.maps.Marker({
+        position: f2,
+        map: map,
+        title:"Second follower"
+    });
+    var marker3 = new google.maps.Marker({
+        position: f3,
+        map: map,
+        title:"Third follower"
+    });
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 </script>
