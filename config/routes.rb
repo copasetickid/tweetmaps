@@ -12,4 +12,5 @@ Rails.application.routes.draw do
 
   get "/:id" => "pages#dashboard", as: :dashboard
   get "/followers/list" => "followers#fetch_followers", as: :follower_lookup
+  get "/followers/map" => "followers#map", as: :follower_map
 end

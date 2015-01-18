@@ -10,4 +10,8 @@ class FollowersController < ApplicationController
       Follower.get_follower_data(follower, current_user.id)
     end
   end
+
+  def map
+    @followers = current_user.followers
+  end
 end
