@@ -4,10 +4,10 @@
 #
 #  id                  :integer          not null, primary key
 #  user_id             :integer
-#  provider            :string(255)
-#  uid                 :string(255)
-#  access_token        :string(255)
-#  access_token_secret :string(255)
+#  provider            :string
+#  uid                 :string
+#  access_token        :string
+#  access_token_secret :string
 #  created_at          :datetime
 #  updated_at          :datetime
 #
@@ -15,6 +15,8 @@
 require 'rails_helper'
 
 RSpec.describe Authentication, :type => :model do
+
+  it { should belong_to(:user) }
 
   before(:each) do
     @user = build_stubbed(:user)
