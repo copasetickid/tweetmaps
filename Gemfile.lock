@@ -255,6 +255,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    shoulda-matchers (2.7.0)
+      activesupport (>= 3.0.0)
     simple_oauth (0.3.1)
     simplecov (0.9.1)
       docile (~> 1.1.0)
@@ -336,6 +338,7 @@ DEPENDENCIES
   rspec-rails (~> 3.1)
   sass-rails (~> 5.0.0)
   selenium-webdriver
+  shoulda-matchers
   spring
   sprockets-rails (~> 2.2.2)
   terminal-notifier-guard

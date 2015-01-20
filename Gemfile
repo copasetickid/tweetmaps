@@ -55,6 +55,7 @@ group :test do
   gem 'capybara'
   gem 'cucumber-rails',  require: false
   gem "codeclimate-test-reporter", require: nil
+  gem 'shoulda-matchers'
 end
 
 # Use ActiveModel has_secure_password
