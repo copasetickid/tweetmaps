@@ -6,6 +6,8 @@ require 'rspec/rails'
 require 'vcr'
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
+
+WebMock.disable_net_connect!(:allow_localhost => true, :allow => /codeclimate.com/)
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -32,6 +34,7 @@ Warden.test_mode!
 VCR.configure do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
   c.hook_into :webmock
+  c.ignore_hosts 'codeclimate.com'
 end
 
 RSpec.configure do |config|
