@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.3'
 # Database
 gem 'pg'
 
@@ -44,7 +44,6 @@ end
 
 group :development do
   gem 'annotate', github: 'ctran/annotate_models'
-  gem 'railroady'
   gem 'terminal-notifier-guard'
   gem 'guard-rspec', require: false
   gem 'fuubar'
