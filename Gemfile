@@ -25,6 +25,7 @@ gem 'twitter'
 gem 'cancancan', '~> 1.9'
 
 gem 'friendly_id', '~> 5.0.4'
+gem 'geocoder'
 
 group :staging  do
   gem 'unicorn'

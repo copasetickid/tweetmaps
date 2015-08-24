@@ -81,9 +81,14 @@ class User < ActiveRecord::Base
 
       # Create the user if it's a new registration
       if user.nil?
+        location = auth.info.location
+        user_location = Geocoder.coordinates("#{location}")
         user = User.new(
+          address: location,
           avatar: auth.info.image,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
+          latitude: user_location.first,
+          longitude: user_location.second,
           password: Devise.friendly_token[0,20],
           name: auth.info.name,
           twitter_username: auth.info.nickname
@@ -112,8 +117,8 @@ class User < ActiveRecord::Base
     self.twitter_username
   end
 
-  private 
-   
+  private
+
   def prepare_social_profile
     build_social_profile unless social_profile
   end
