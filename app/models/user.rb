@@ -117,6 +117,10 @@ class User < ActiveRecord::Base
     self.twitter_username
   end
 
+  def get_authentication(name)
+    authentications.where(provider: name).first
+  end
+
   private
 
   def prepare_social_profile
