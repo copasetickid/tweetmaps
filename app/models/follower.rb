@@ -18,7 +18,7 @@ class Follower < ActiveRecord::Base
   geocoded_by :location
 
   def self.get_follower_data(follower, user_id)
-    location = f.location
+    location = follower.location
     location_value = Geocoder.coordinates("#{location}")
     if location_value.present?
       Follower.where(username: follower.screen_name, user_id: user_id,
