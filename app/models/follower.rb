@@ -3,9 +3,9 @@
 # Table name: followers
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
-#  username   :string(255)
-#  location   :string(255)
+#  name       :string
+#  username   :string
+#  location   :string
 #  latitude   :float
 #  longitude  :float
 #  user_id    :integer
@@ -15,8 +15,16 @@
 
 class Follower < ActiveRecord::Base
   belongs_to :user
+  geocoded_by :location
 
   def self.get_follower_data(follower, user_id)
-    Follower.where(username: follower.screen_name, user_id: user_id).first_or_create!
+    location = follower.location
+    location_value = Geocoder.coordinates("#{location}")
+    if location_value.present?
+      Follower.where(username: follower.screen_name, user_id: user_id,
+        location: follower.location, latitude: location_value.first,
+        longitude: location_value.second
+        ).first_or_create!
+    end
   end
 end

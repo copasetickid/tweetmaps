@@ -3,22 +3,22 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  email                  :string(255)      default(""), not null
-#  encrypted_password     :string(255)      default(""), not null
-#  reset_password_token   :string(255)
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
-#  sign_in_count          :integer          default(0), not null
+#  sign_in_count          :integer          default("0"), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
-#  avatar                 :string(255)
-#  twitter_username       :string(255)
-#  name                   :string(255)
+#  avatar                 :string
+#  twitter_username       :string
+#  name                   :string
 #  created_at             :datetime
 #  updated_at             :datetime
-#  slug                   :string(255)
+#  slug                   :string
 #
 
 class User < ActiveRecord::Base
@@ -38,6 +38,9 @@ class User < ActiveRecord::Base
 
   has_many :followers
   has_many :authentications
+  has_one  :social_profile
+
+  before_create :prepare_social_profile
 
   def self.find_for_omniauth(auth, signed_in_resource = nil)
     # Get the authentication and user if they exist
@@ -55,9 +58,11 @@ class User < ActiveRecord::Base
       user = User.create_from_social_auth(auth)
       #Associate the identity with the user if needed
       user = Authentication.associate_with_social_auth(auth, user)
+      user.update_social_profile(auth)
     else
       #Associate the identity with the user if needed
       user = Authentication.associate_with_social_auth(auth, user)
+     user.update_social_profile(auth)
     end
     user
   end
@@ -76,9 +81,14 @@ class User < ActiveRecord::Base
 
       # Create the user if it's a new registration
       if user.nil?
+        location = auth.info.location
+        user_location = Geocoder.coordinates("#{location}")
         user = User.new(
+          address: location,
           avatar: auth.info.image,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
+          latitude: user_location.first,
+          longitude: user_location.second,
           password: Devise.friendly_token[0,20],
           name: auth.info.name,
           twitter_username: auth.info.nickname
@@ -96,7 +106,24 @@ class User < ActiveRecord::Base
     end
   end
 
+  def update_social_profile(auth)
+    if auth.provider == "twitter"
+      self.social_profile.update_attributes(twitter_followers: auth.extra.raw_info.followers_count)
+    end
+  end
+
+
   def username
     self.twitter_username
+  end
+
+  def get_authentication(name)
+    authentications.where(provider: name).first
+  end
+
+  private
+
+  def prepare_social_profile
+    build_social_profile unless social_profile
   end
 end

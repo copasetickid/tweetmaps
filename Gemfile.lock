@@ -114,6 +114,7 @@ GEM
     fuubar (2.0.0)
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
+    geocoder (1.2.9)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     globalid (0.3.5)
@@ -255,6 +256,8 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    shoulda-matchers (2.7.0)
+      activesupport (>= 3.0.0)
     simple_oauth (0.3.1)
     simplecov (0.9.1)
       docile (~> 1.1.0)
@@ -323,6 +326,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.5.0)
   friendly_id (~> 5.0.4)
   fuubar
+  geocoder
   guard-rspec
   jquery-rails (~> 4.0.3)
   omniauth
@@ -336,6 +340,7 @@ DEPENDENCIES
   rspec-rails (~> 3.1)
   sass-rails (~> 5.0.0)
   selenium-webdriver
+  shoulda-matchers
   spring
   sprockets-rails (~> 2.2.2)
   terminal-notifier-guard
@@ -344,6 +349,3 @@ DEPENDENCIES
   unicorn
   vcr (~> 2.9.3)
   webmock
-
-BUNDLED WITH
-   1.10.2

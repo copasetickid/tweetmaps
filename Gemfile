@@ -25,6 +25,7 @@ gem 'twitter'
 gem 'cancancan', '~> 1.9'
 
 gem 'friendly_id', '~> 5.0.4'
+gem 'geocoder'
 
 group :staging  do
   gem 'unicorn'
@@ -55,6 +56,7 @@ group :test do
   gem 'capybara'
   gem 'cucumber-rails',  require: false
   gem "codeclimate-test-reporter", require: nil
+  gem 'shoulda-matchers'
 end
 
 # Use ActiveModel has_secure_password
